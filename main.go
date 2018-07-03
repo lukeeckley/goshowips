@@ -6,12 +6,23 @@ import (
         "bufio"
         _ "io"
         "os"
+	"flag"
+	"github.com/lukeeckley/geoip"
 )
 
 func main() {
+	geoPtr := flag.Bool("g", false, "Print GeoIP country code with IP addresses")
+
         scanner := bufio.NewScanner(os.Stdin)
         var source string = ""
         var results []string
+
+	// GeoIP location
+	var geofile = "/usr/share/GeoIP/GeoIP.dat"
+	gi, err := geoip.Open(geofile)
+	if err != nil {
+		fmt.Printf("Counldn't open GeoIP database\n")
+	}
 
         for scanner.Scan() {
                 source += scanner.Text()
@@ -31,7 +42,12 @@ func main() {
         }
         // Print one IP per line
         for _, element := range results {
-                fmt.Println(element)
+                if *geoPtr {
+			country, _ := gi.GetCountry(element)
+			fmt.Printf("%s\t%s\n",element,country)
+		} else {
+			fmt.Println(element)
+		}
         }
 }
 
