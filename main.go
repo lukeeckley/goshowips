@@ -12,6 +12,7 @@ import (
 
 func main() {
 	geoPtr := flag.Bool("g", false, "Print GeoIP country code with IP addresses")
+	flag.Parse()
 
         scanner := bufio.NewScanner(os.Stdin)
         var source string = ""
