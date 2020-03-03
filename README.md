@@ -12,7 +12,7 @@ Pipe in a file or program output and output all unique IP addresses, one per lin
 192.168.1.7  
 
 ## Example with GeoIP Information
-[luke@somehost]$ cat ~/scans/nmap/XXX/nmapoutput.gnmap | grep open | ./goshowips  
+[luke@somehost]$ cat ~/scans/nmap/XXX/nmapoutput.gnmap | grep open | ./goshowips -g
 192.168.1.1  US  
 192.168.1.2  CN  
 192.168.1.3  GB  
